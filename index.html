@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Cueva Dojo | Disciplina · Carácter · Combate</title>
+  <meta name="description" content="Dojo La Cueva – Artes marciales y combat sports en Buenos Aires. BJJ, Muay Thai, Kick Boxing, MMA, Taekwondo y más." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #c0392b;
+      --red-bright: #e74c3c;
+      --white: #f0ece6;
+      --off-white: #b8b0a5;
+      --bg: #0d0c0b;
+      --bg2: #131210;
+      --bg3: #1a1815;
+      --border: rgba(192,57,43,0.4);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.04;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      height: 64px;
+      background: linear-gradient(to bottom, rgba(13,12,11,0.98) 0%, rgba(13,12,11,0) 100%);
+      backdrop-filter: blur(2px);
+    }
+
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--red-bright); }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--red-bright); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 0 1rem;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(192,57,43,0.12) 0%, transparent 70%),
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255,255,255,0.01) 2px,
+          rgba(255,255,255,0.01) 4px
+        ),
+        linear-gradient(180deg, #0d0c0b 0%, #0a0908 100%);
+    }
+
+    .hero-crack {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(135deg, transparent 40%, rgba(192,57,43,0.03) 50%, transparent 60%),
+        linear-gradient(45deg, transparent 35%, rgba(192,57,43,0.02) 45%, transparent 55%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      animation: heroIn 1.2s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-eyebrow {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 1.5rem;
+      animation: heroIn 1s 0.2s both;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(6rem, 22vw, 16rem);
+      line-height: 0.85;
+      letter-spacing: -0.01em;
+      color: var(--white);
+      text-shadow:
+        0 0 80px rgba(192,57,43,0.3),
+        0 4px 0 rgba(0,0,0,0.8);
+      animation: heroIn 1s 0.1s both;
+    }
+
+    .hero-title span {
+      display: block;
+      color: var(--red-bright);
+      font-size: clamp(5rem, 18vw, 13rem);
+      -webkit-text-stroke: 2px var(--red-bright);
+      color: transparent;
+      text-shadow: none;
+    }
+
+    .hero-tagline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.6em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      margin-top: 2rem;
+      animation: heroIn 1s 0.3s both;
+    }
+
+    .hero-tagline em {
+      color: var(--red-bright);
+      font-style: normal;
+    }
+
+    .hero-cta {
+      margin-top: 3rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: heroIn 1s 0.4s both;
+    }
+
+    .btn {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 900;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 0.9rem 2.5rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    }
+
+    .btn-primary {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    .btn-primary:hover {
+      background: var(--red-bright);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(240,236,230,0.3);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--red-bright);
+      color: var(--red-bright);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      animation: heroIn 1s 0.8s both;
+    }
+
+    .hero-scroll span {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--off-white);
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, var(--red-bright), transparent);
+      animation: scrollDrop 1.5s ease-in-out infinite;
+    }
+
+    @keyframes scrollDrop {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.5); opacity: 0.5; }
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      position: relative;
+      padding: 7rem 1rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.45em;
+      text-transform: uppercase;
+      color: var(--red-bright);
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1;
+      letter-spacing: 0.03em;
+      color: var(--white);
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: var(--red);
+      margin: 1.5rem auto 0;
+    }
+
+    /* ── DISCIPLINES ── */
+    #disciplines {
+      background: var(--bg2);
+    }
+
+    .disciplines-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5px;
+    }
+
+    .disc-card {
+      position: relative;
+      background: var(--bg3);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .disc-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--red);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+    }
+
+    .disc-card:hover::before { transform: scaleX(1); }
+    .disc-card:hover { background: #201d1a; }
+
+    .disc-icon {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      display: block;
+      filter: grayscale(0.3);
+    }
+
+    .disc-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+    }
+
+    .disc-desc {
+      font-size: 0.75rem;
+      color: var(--off-white);
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
+
+    /* ── SCHEDULE ── */
+    #horarios {
+      background: var(--bg);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border: 1px solid var(--border);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    thead tr {
+      background: var(--red);
+    }
+
+    thead th {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      padding: 1rem 0.75rem;
+      text-align: center;
+      border-right: 1px solid rgba(0,0,0,0.2);
+    }
+
+    thead th:first-child { text-align: left; padding-left: 1.25rem; }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover { background: rgba(192,57,43,0.07); }
+
+    tbody td {
+      padding: 0.9rem 0.75rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.04);
+      vertical-align: top;
+    }
+
+    tbody td:first-child {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.05em;
+      color: var(--red-bright);
+      text-align: left;
+      padding-left: 1.25rem;
+      white-space: nowrap;
+    }
+
+    .class-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .class-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+
+    .class-name.bjj { color: #3498db; }
+    .class-name.muay { color: #e67e22; }
+    .class-name.kb { color: var(--red-bright); }
+    .class-name.tkd { color: #2ecc71; }
+    .class-name.mma { color: #9b59b6; }
+    .class-name.sfr { color: #f1c40f; }
+    .class-name.func { color: #1abc9c; }
+    .class-name.str { color: #95a5a6; }
+    .class-name.team { color: var(--white); }
+    .class-name.kids { color: #fd79a8; }
+    .class-name.med  { color: #a29bfe; }
+
+    .empty-cell { color: rgba(255,255,255,0.12); font-size: 0.7rem; }
+
+    /* ── PRICING ── */
+    #cuotas {
+      background: var(--bg2);
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+    }
+
+    .pricing-card {
+      background: var(--bg3);
+      padding: 2.5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--red);
+    }
+
+    .pricing-card.featured {
+      background: #1f1c18;
+    }
+
+    .pricing-card.featured::after {
+      background: linear-gradient(to bottom, var(--red-bright), var(--red));
+      width: 4px;
+    }
+
+    .pricing-badge {
+      display: inline-block;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--bg);
+      background: var(--red-bright);
+      padding: 0.25rem 0.75rem;
+      margin-bottom: 1rem;
+      clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+    }
+
+    .pricing-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 1.5rem;
+    }
+
+    .pricing-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .pricing-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-bottom: 0.9rem;
+    }
+
+    .pricing-list li:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .price-label {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--off-white);
+    }
+
+    .price-amount {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+
+    .price-amount span {
+      font-size: 0.75rem;
+      color: var(--off-white);
+      font-family: 'Barlow Condensed', sans-serif;
+    }
+
+    .pricing-note {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      color: var(--off-white);
+    }
+
+    .pricing-note strong {
+      color: var(--red-bright);
+      font-size: 1rem;
+    }
+
+    /* ── CONTACT ── */
+    #contacto {
+      background: var(--bg);
+      text-align: center;
+    }
+
+    .contact-wrapper {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin: 3rem 0;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+      color: var(--off-white);
+    }
+
+    .contact-row a {
+      color: var(--white);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .contact-row a:hover { color: var(--red-bright); }
+
+    .contact-icon {
+      color: var(--red-bright);
+      font-size: 1.2rem;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .social-link {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--off-white);
+      text-decoration: none;
+      padding: 0.6rem 1.2rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: all 0.2s;
+      clip-path: polygon(4px 0%, 100% 0%, calc(100% - 4px) 100%, 0% 100%);
+    }
+
+    .social-link:hover {
+      border-color: var(--red-bright);
+      color: var(--red-bright);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #080706;
+      padding: 3rem 1rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-tagline {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.5em;
+      text-transform: uppercase;
+      color: var(--off-white);
+    }
+
+    .footer-tagline em {
+      color: var(--red-bright);
+      font-style: normal;
+    }
+
+    .footer-copy {
+      margin-top: 2rem;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── REVEAL ANIMATIONS ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+
+      section { padding: 5rem 1rem; }
+
+      .hero-tagline { letter-spacing: 0.3em; font-size: 0.85rem; }
+
+      .pricing-grid { grid-template-columns: 1fr; }
+
+      .disciplines-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── HAMBURGER (mobile nav) ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .nav-hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .nav-hamburger { display: flex; }
+
+      .nav-links {
+        display: flex;
+        position: fixed;
+        top: 64px; left: 0; right: 0;
+        background: rgba(13,12,11,0.98);
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        gap: 1.5rem;
+        transform: translateY(-120%);
+        transition: transform 0.3s;
+        backdrop-filter: blur(10px);
+      }
+
+      .nav-links.open { transform: translateY(0); }
+
+      .nav-links a { font-size: 1.1rem; }
+    }
+
+    /* ── COUNTER STRIPE ── */
+    .stripe {
+      background: var(--red);
+      padding: 1.2rem 0;
+      overflow: hidden;
+    }
+
+    .stripe-inner {
+      display: flex;
+      gap: 4rem;
+      animation: stripeScroll 18s linear infinite;
+      white-space: nowrap;
+      width: max-content;
+    }
+
+    @keyframes stripeScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .stripe-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .stripe-dot {
+      color: rgba(255,255,255,0.4);
+      margin: 0 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#hero" class="nav-logo">LA <span>CUEVA</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#disciplines">Disciplinas</a></li>
+      <li><a href="#horarios">Horarios</a></li>
+      <li><a href="#cuotas">Cuotas</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-crack"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Buenos Aires · Argentina</p>
+      <h1 class="hero-title">
+        LA<span>CUEVA</span>
+      </h1>
+      <p class="hero-tagline">Disciplina <em>·</em> Carácter <em>·</em> Combate</p>
+      <div class="hero-cta">
+        <a href="#horarios" class="btn btn-primary">Ver Horarios</a>
+        <a href="#cuotas" class="btn btn-outline">Ver Cuotas</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- STRIPE -->
+  <div class="stripe">
+    <div class="stripe-inner">
+      <span class="stripe-item">BJJ</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">MUAY THAI</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">KICK BOXING</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">MMA</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">TAEKWONDO</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">SHINKAGE FURO RYU</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">FUNCIONAL</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">BOXEO</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">BJJ</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">MUAY THAI</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">KICK BOXING</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">MMA</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">TAEKWONDO</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">SHINKAGE FURO RYU</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">FUNCIONAL</span><span class="stripe-dot">·</span>
+      <span class="stripe-item">BOXEO</span><span class="stripe-dot">·</span>
+    </div>
+  </div>
+
+  <!-- DISCIPLINES -->
+  <section id="disciplines">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Lo que entrenamos</p>
+        <h2 class="section-title">Disciplinas</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="disciplines-grid reveal">
+        <div class="disc-card">
+          <span class="disc-icon">🥋</span>
+          <div class="disc-name">Jiu Jitsu</div>
+          <div class="disc-desc">Brazilian Jiu-Jitsu. El arte de lucha en el suelo.</div>
+        </div>
+        <div class="disc-card">
+          <span class="disc-icon">🥊</span>
+          <div class="disc-name">Muay Thai</div>
+          <div class="disc-desc">El arte de las ocho extremidades. Striking completo.</div>
+        </div>
+        <div class="disc-card">
+          <span class="disc-icon">🥊</span>
+          <div class="disc-name">Kick Boxing</div>
+          <div class="disc-desc">Puños y patadas con potencia y técnica.</div>
+        </div>
+        <div class="disc-card">
+          <span class="disc-icon">🥊</span>
+          <div class="disc-name">Boxeo</div>
+          <div class="disc-desc">La ciencia dulce. Técnica, movimiento y potencia.</div>
+        </div>
+        <div class="disc-card">
+          <span class="disc-icon">🥋</span>
+          <div class="disc-name">MMA</div>
+          <div class="disc-desc">Mixed Martial Arts. El deporte de combate más completo.</div>
+        </div>
+        <div class="disc-card">
+          <span class="disc-icon">🥋</span>
+          <div class="disc-name">Taekwondo</div>
+          <div class="disc-desc">Arte marcial coreano. Kids desde 4 años.</div>
+        </div>
+        <div class="disc-card">
+          <span class="disc-icon">⚔️</span>
+          <div class="disc-name">Shinkage Furo Ryu</div>
+          <div class="disc-desc">Koryu japonés. Arte marcial tradicional.</div>
+        </div>
+        <div class="disc-card">
+          <span class="disc-icon">💪</span>
+          <div class="disc-name">Funcional</div>
+          <div class="disc-desc">Entrenamiento físico orientado al rendimiento.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HORARIOS -->
+  <section id="horarios">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Clases semanales</p>
+        <h2 class="section-title">Horarios</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="table-wrapper reveal">
+        <table>
+          <thead>
+            <tr>
+              <th>Hora</th>
+              <th>Lunes</th>
+              <th>Martes</th>
+              <th>Miércoles</th>
+              <th>Jueves</th>
+              <th>Viernes</th>
+              <th>Sábado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>08:00</td>
+              <td><span class="empty-cell">—</span></td>
+              <td><div class="class-cell"><span class="class-name bjj">Jiu Jitsu</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><div class="class-cell"><span class="class-name bjj">Jiu Jitsu</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+            </tr>
+            <tr>
+              <td>09:00</td>
+              <td><div class="class-cell"><span class="class-name str">Stretching</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><div class="class-cell"><span class="class-name str">Stretching</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><span class="empty-cell">—</span></td>
+            </tr>
+            <tr>
+              <td>10:00</td>
+              <td><div class="class-cell"><span class="class-name kb">Kick Boxing<br>Boxeo</span></div></td>
+              <td><div class="class-cell"><span class="class-name func">Funcional</span></div></td>
+              <td><div class="class-cell"><span class="class-name kb">Kick Boxing<br>Boxeo</span></div></td>
+              <td><div class="class-cell"><span class="class-name func">Funcional</span></div></td>
+              <td><div class="class-cell"><span class="class-name kb">Kick Boxing<br>Boxeo</span></div></td>
+              <td><div class="class-cell"><span class="class-name team">Team<br>La Cueva</span></div></td>
+            </tr>
+            <tr>
+              <td>11:00</td>
+              <td><span class="empty-cell">—</span></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><div class="class-cell"><span class="class-name med">Meditación<br>Budista</span></div></td>
+            </tr>
+            <tr>
+              <td>14:00<small style="display:block;opacity:.5;font-size:.65rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:.05em">hasta 16hs</small></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><div class="class-cell"><span class="class-name sfr">Shinkage<br>Furo Ryu</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><div class="class-cell"><span class="class-name sfr">Shinkage<br>Furo Ryu</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><div class="class-cell"><span class="class-name sfr">Shinkage<br>Furo Ryu</span></div></td>
+            </tr>
+            <tr>
+              <td>16:00</td>
+              <td><div class="class-cell"><span class="class-name kb">Kick Boxing<br>Boxeo</span></div></td>
+              <td><div class="class-cell"><span class="class-name muay">Muay Thai</span></div></td>
+              <td><div class="class-cell"><span class="class-name kb">Kick Boxing<br>Boxeo</span></div></td>
+              <td><div class="class-cell"><span class="class-name muay">Muay Thai</span></div></td>
+              <td><div class="class-cell"><span class="class-name kb">Kick Boxing<br>Boxeo</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+            </tr>
+            <tr>
+              <td>17:00</td>
+              <td><div class="class-cell"><span class="class-name tkd">Taekwondo<br><small style="opacity:.7">4 a 7 años</small></span></div></td>
+              <td><div class="class-cell"><span class="class-name bjj">Jiu Jitsu</span></div></td>
+              <td><div class="class-cell"><span class="class-name tkd">Taekwondo<br><small style="opacity:.7">4 a 7 años</small></span></div></td>
+              <td><div class="class-cell"><span class="class-name bjj">Jiu Jitsu</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><span class="empty-cell">—</span></td>
+            </tr>
+            <tr>
+              <td>18:00</td>
+              <td><div class="class-cell"><span class="class-name tkd">Taekwondo<br><small style="opacity:.7">+8 años</small></span></div></td>
+              <td><div class="class-cell"><span class="class-name kids">BJJ Kids</span></div></td>
+              <td><div class="class-cell"><span class="class-name tkd">Taekwondo<br><small style="opacity:.7">+8 años</small></span></div></td>
+              <td><div class="class-cell"><span class="class-name kids">BJJ Kids</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><span class="empty-cell">—</span></td>
+            </tr>
+            <tr>
+              <td>19:00</td>
+              <td><div class="class-cell"><span class="class-name func">Funcional</span></div></td>
+              <td><div class="class-cell"><span class="class-name bjj">Jiu Jitsu</span></div></td>
+              <td><div class="class-cell"><span class="class-name func">Funcional</span></div></td>
+              <td><div class="class-cell"><span class="class-name bjj">Jiu Jitsu</span></div></td>
+              <td><div class="class-cell"><span class="class-name func">Funcional</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+            </tr>
+            <tr>
+              <td>20:00</td>
+              <td><div class="class-cell"><span class="class-name kb">Kick Boxing<br>Boxeo</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><div class="class-cell"><span class="class-name kb">Kick Boxing<br>Boxeo</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><div class="class-cell"><span class="class-name kb">Kick Boxing<br>Boxeo</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+            </tr>
+            <tr>
+              <td>21:00</td>
+              <td><div class="class-cell"><span class="class-name mma">MMA</span></div></td>
+              <td><div class="class-cell"><span class="class-name muay">Muay Thai</span></div></td>
+              <td><div class="class-cell"><span class="class-name mma">MMA</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+              <td><div class="class-cell"><span class="class-name muay">Muay Thai</span></div></td>
+              <td><span class="empty-cell">—</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- CUOTAS -->
+  <section id="cuotas">
+    <div class="container">
+      <div class="section-header reveal">
+        <p class="section-label">Membresías</p>
+        <h2 class="section-title">Cuotas</h2>
+        <div class="divider"></div>
+      </div>
+      <div class="pricing-grid reveal">
+
+        <!-- ACTIVIDADES -->
+        <div class="pricing-card">
+          <div class="pricing-title">Actividades</div>
+          <ul class="pricing-list">
+            <li>
+              <span class="price-label">1 actividad</span>
+              <span class="price-amount">$45.000 <span>/ mes</span></span>
+            </li>
+            <li>
+              <span class="price-label">2 actividades</span>
+              <span class="price-amount">$60.000 <span>/ mes</span></span>
+            </li>
+            <li>
+              <span class="price-label">3 actividades</span>
+              <span class="price-amount">$75.000 <span>/ mes</span></span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- KIDS -->
+        <div class="pricing-card">
+          <div class="pricing-title">Kids</div>
+          <ul class="pricing-list">
+            <li>
+              <span class="price-label">1 actividad</span>
+              <span class="price-amount">$45.000 <span>/ mes</span></span>
+            </li>
+            <li>
+              <span class="price-label">2 actividades</span>
+              <span class="price-amount">$60.000 <span>/ mes</span></span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- BJJ -->
+        <div class="pricing-card">
+          <div class="pricing-title">Jiu Jitsu</div>
+          <ul class="pricing-list">
+            <li>
+              <span class="price-label">BJJ libre</span>
+              <span class="price-amount">$45.000 <span>/ mes</span></span>
+            </li>
+            <li>
+              <span class="price-label">BJJ + 1 actividad</span>
+              <span class="price-amount">$85.000 <span>/ mes</span></span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- PASES -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Mejor valor</div>
+          <div class="pricing-title">Pases</div>
+          <ul class="pricing-list">
+            <li>
+              <span class="price-label">Pase libre <small style="opacity:.6">(sin BJJ)</small></span>
+              <span class="price-amount">$90.000 <span>/ mes</span></span>
+            </li>
+            <li>
+              <span class="price-label">Pase full <small style="opacity:.6">(incluye BJJ)</small></span>
+              <span class="price-amount">$100.000 <span>/ mes</span></span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="pricing-note reveal">
+        <strong>⚠ Las cuotas se abonan del 1 al 5 de cada mes.</strong>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="container">
+      <div class="contact-wrapper">
+        <div class="section-header reveal">
+          <p class="section-label">Dónde encontrarnos</p>
+          <h2 class="section-title">Contacto</h2>
+          <div class="divider"></div>
+        </div>
+        <div class="contact-info reveal">
+          <div class="contact-row">
+            <span class="contact-icon">🌐</span>
+            <a href="https://www.lacuevadojo.ninja" target="_blank">www.lacuevadojo.ninja</a>
+          </div>
+          <div class="contact-row">
+            <span class="contact-icon">📍</span>
+            <span>Buenos Aires, Argentina</span>
+          </div>
+        </div>
+        <div class="social-links reveal">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">WhatsApp</a>
+          <a href="#" class="social-link">Facebook</a>
+        </div>
+        <div style="margin-top: 3rem;" class="reveal">
+          <a href="#cuotas" class="btn btn-primary" style="font-size:1rem; padding: 1rem 3rem;">
+            Comenzar ahora
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">La Cueva</div>
+    <div class="footer-tagline">
+      Disciplina <em>·</em> Carácter <em>·</em> Combate
+    </div>
+    <p class="footer-copy">© 2026 Dojo La Cueva · lacuevadojo.ninja</p>
+  </footer>
+
+  <script>
+    // Mobile nav toggle
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    // Close nav on link click
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Stagger reveal children
+    document.querySelectorAll('.disciplines-grid .disc-card, .pricing-grid .pricing-card').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 0.07}s`;
+      card.classList.add('reveal');
+      observer.observe(card);
+    });
+
+    // Nav shadow on scroll
+    window.addEventListener('scroll', () => {
+      const nav = document.querySelector('nav');
+      if (window.scrollY > 50) {
+        nav.style.background = 'rgba(13,12,11,0.97)';
+        nav.style.boxShadow = '0 1px 0 rgba(192,57,43,0.2)';
+      } else {
+        nav.style.background = 'linear-gradient(to bottom, rgba(13,12,11,0.98) 0%, rgba(13,12,11,0) 100%)';
+        nav.style.boxShadow = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
